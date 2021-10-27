@@ -10,8 +10,12 @@ public class ArrayQueue  implements Queue{
 
     @Override
     public void enqueue(Object value) {
-        array[size] = value;
-        size++;
+        if (value == null){
+            throw new NullPointerException("Nulls are not supported!");
+        } else {
+            array[size] = value;
+            size++;
+        }
     }
 
     @Override
@@ -20,11 +24,9 @@ public class ArrayQueue  implements Queue{
             throw new IllegalStateException("It is Empty!");
         }
         Object result = array[0];
-        Object[] arrayNew = new Object[size-1];
-        for (int i = 0; i < arrayNew.length; i++) {
-            arrayNew[i] = array[i+1];
+         for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i+1];
         }
-        array = arrayNew;
         size--;
         return result;
     }
@@ -60,19 +62,22 @@ public class ArrayQueue  implements Queue{
 
     @Override
     public void clear() {
+        // delete objects before
+        for (int i = 0; i < size; i++) {
+            array[i] = null;
+        }
         size = 0;
     }
 
     @Override
     public String toString() {
-        String result="";
+        StringBuilder result= new StringBuilder();
         for(int i = 0; i < size ; i++){
            // Object value = array[i];
-            result = result + array[i];
+            result.append(array[i]);
+          //  result = result + array[i];
             if (i < size - 1 ) {
-                result = result + ", ";
-            } else {
-                result = result + "";
+                result.append(", ");
             }
         }
         return "[" + result + "]";

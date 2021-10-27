@@ -1,11 +1,12 @@
 package com.luxoft.datastructures.queue;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QueueTest {
+public class ArrayQueueTest {
 //    void enqueue(Object value);
 //    Object dequeue();
 //    Object peek();
@@ -30,7 +31,30 @@ public class QueueTest {
         assertEquals("B", arrayQueue.dequeue());
         assertEquals("C", arrayQueue.dequeue());
         assertEquals("D", arrayQueue.dequeue());
-     //   System.out.println(arrayQueue.toString());
+        assertTrue( arrayQueue.isEmpty());
+    }
+
+    @Test
+    public void testEnqueueAndDequeueWorkCorrectly() {
+        ArrayQueue arrayQueue = new ArrayQueue();
+        arrayQueue.enqueue("A");
+
+        assertEquals("A", arrayQueue.dequeue());
+
+        assertTrue( arrayQueue.isEmpty());
+
+        arrayQueue.enqueue("B");
+
+        assertEquals("B", arrayQueue.dequeue());
+        assertTrue( arrayQueue.isEmpty());
+    }
+
+    @Test
+    public void testThrowNullPointExceptionWhenEnqueueNullValue() {
+        ArrayQueue arrayQueue = new ArrayQueue();
+        assertThrows(NullPointerException.class, () -> {
+            arrayQueue.enqueue(null); });
+
         assertTrue( arrayQueue.isEmpty());
     }
 
@@ -72,7 +96,6 @@ public class QueueTest {
 
         arrayQueue.clear();
         assertTrue(arrayQueue.isEmpty());
-     //   System.out.println(arrayQueue.printArray());
     }
 
     @Test
@@ -85,6 +108,7 @@ public class QueueTest {
         assertTrue(arrayQueue.contains("D"));
     }
 
+    @DisplayName("Check if Contain function return True for case when Queue has search value ")
     @Test
     public void testContainReturnTrueForFirstValueOfQueueWithData(){
         ArrayQueue arrayQueue = new ArrayQueue();
@@ -96,7 +120,7 @@ public class QueueTest {
     }
 
     @Test
-    public void testContainReturnFalseForQueueWithData(){
+    public void testContainReturnFalseForMissedValueInQueue(){
         ArrayQueue arrayQueue = new ArrayQueue();
         arrayQueue.enqueue("A");
         arrayQueue.enqueue("B");
@@ -148,5 +172,7 @@ public class QueueTest {
             arrayQueue.dequeue();
         });
     }
+
+
 
 }
