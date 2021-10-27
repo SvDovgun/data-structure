@@ -83,13 +83,5 @@ public class ArrayQueue  implements Queue{
         return "[" + result + "]";
     };
 
-    public String printArray() {
-        String result="";
-        for(int i = 0; i < array.length ; i++){
-            Object value = array[i];
-            result = result + (String) value;
-            System.out.println(" array[" + i + "] = " + value + "; ");
-        }
-        return result;
-    };
+
 }
