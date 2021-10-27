@@ -73,9 +73,7 @@ public class ArrayQueue  implements Queue{
     public String toString() {
         StringBuilder result= new StringBuilder();
         for(int i = 0; i < size ; i++){
-           // Object value = array[i];
             result.append(array[i]);
-          //  result = result + array[i];
             if (i < size - 1 ) {
                 result.append(", ");
             }
