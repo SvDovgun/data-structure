@@ -16,6 +16,6 @@ public interface Queue {
     void clear();
 
     // [A, B, C] if size = 3
-   // String toString();
+    String toString();
 
 }
