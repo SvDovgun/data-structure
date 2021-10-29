@@ -1,4 +1,8 @@
 package com.luxoft.datastructures.queue;
+/**
+ * ArrayQueue class - homework on 27 Oct 2021.
+ * @author SvDovgun
+ */
 
 public class ArrayQueue  implements Queue{
     private int size;
