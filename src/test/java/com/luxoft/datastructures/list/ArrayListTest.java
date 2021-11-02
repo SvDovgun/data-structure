@@ -18,6 +18,14 @@ public class ArrayListTest {
         assertEquals(1, arrayList.size());
     }
 
+    @DisplayName("Test Attempt Add Value By Negative Index Return Exception")
+    @Test
+    public void testAttemptAddValueByNegativeIndexReturnException() {
+        ArrayList arrayList = new ArrayList();
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {arrayList.add("A", -1);});
+
+    }
+
     @DisplayName("Test Simple Add/Remove 1 Value Twice and check by size and isEmpty functions")
     @Test
     public void testAddAndRemoveValueByDefaultToEmptyListCorrect() {

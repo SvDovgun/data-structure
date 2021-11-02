@@ -18,10 +18,11 @@ public class ArrayList implements List {
     }
     @Override
     public void add(Object value) {
-        checkValueOnNull(value);
-        ensureCapacity();
-        array[size] = value;
-        size++;
+//        checkValueOnNull(value);
+//        ensureCapacity();
+//        array[size] = value;
+//        size++;
+        add(value, size);
     }
 
     @Override
@@ -39,9 +40,11 @@ public class ArrayList implements List {
     @Override
     public Object remove(int index) {
         checkIndex(size-1, index);
-        for (int i = index+1; i < size ; i++) {
-            array[i-1] = array[i];
-        }
+//        for (int i = index+1; i < size ; i++) {
+//            array[i-1] = array[i];
+//        }
+        System.arraycopy(array, index + 1, array, index, size - 1 - index ); // instead of forI
+        array[size - 1] = null; // memory lack? without it
         size--;
         return array;
     }
@@ -79,13 +82,14 @@ public class ArrayList implements List {
 
     @Override
     public boolean contains(Object value) {
-        for (int i = 0; i < size; i++) {
-            Object valueArray = array[i];
-            if (valueArray.equals(value)) {
-                return true;
-            }
-        }
-        return false;
+//        for (int i = 0; i < size; i++) {
+//            Object valueArray = array[i];
+//            if (valueArray.equals(value)) {
+//                return true;
+//            }
+//        }
+//        return false;
+        return indexOf(value) != -1;
     }
 
     @Override
@@ -124,9 +128,12 @@ public class ArrayList implements List {
         return "[" + result + "]";
     }
 
-    private void checkIndex(int size, int indexToRemove) {
-        if (indexToRemove > size) {
+    private void checkIndex(int size, int index) {
+        if (index > size) {
             throw new IndexOutOfBoundsException("Index is more than array size!");
+        }
+        if (index < 0 ) {
+            throw new ArrayIndexOutOfBoundsException("Negative index are not supported!");
         }
     }
 
