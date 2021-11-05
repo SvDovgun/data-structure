@@ -235,7 +235,8 @@ public class ArrayListTest {
         assertEquals(3, arrayList.size());
         arrayList.set("F" , 1);
         assertEquals(3, arrayList.size());
-        assertEquals("[A, F, C]", arrayList.toString());
+        arrayList.set("E" , 2);
+        assertEquals("[A, F, E]", arrayList.toString());
     }
 
     @DisplayName("Test Clear Existed List and check size")

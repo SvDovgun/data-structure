@@ -37,7 +37,6 @@ public class LinkedList implements List {
     private void insertIn(Node newNode,int index){
         Node current = head;
         Node future = null;
-        Node inserted = newNode;
 
         for (int i = 1; i < index  ; i++) {
             current = current.getNext();
@@ -95,8 +94,8 @@ public class LinkedList implements List {
         Node current = head;
         for (int i = 0; i < index; i++) {
             current = current.getNext();
-            current.setValue(value);
         }
+        current.setValue(value);
         return current.getValue();
     }
 

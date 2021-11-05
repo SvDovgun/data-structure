@@ -222,7 +222,8 @@ public class LinkedListTest {
         assertEquals(3, list.size());
         list.set("F" , 1);
         assertEquals(3, list.size());
-        assertEquals("[A, F, C]", list.toString());
+        list.set("E" , 2);
+        assertEquals("[A, F, E]", list.toString());
     }
 
     @DisplayName("Test Clear Existed List and check size")
