@@ -63,8 +63,6 @@ public class LinkedList implements List {
         } else {
             for (int i = 1; i < index + 1; i++) {
                 current = current.getNext();
-                System.out.println(current);
-                System.out.println(current.getValue());
             }
             removed = current;
             current = removed.getPrev();

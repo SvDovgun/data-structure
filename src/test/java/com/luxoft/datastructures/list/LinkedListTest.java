@@ -149,7 +149,6 @@ public class LinkedListTest {
         }
         assertEquals(10, list.size());
         list.add("F", 5);
-        System.out.println(list.toString());
         assertEquals("[0, 1, 2, 3, 4, F, 5, 6, 7, 8, 9]",list.toString() );
     }
 
