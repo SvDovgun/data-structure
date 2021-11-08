@@ -1,5 +1,6 @@
 package com.luxoft.datastructures.list;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -8,11 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
 
+    private ArrayList arrayList;
+
+    @BeforeEach
+    protected void setUp() throws Exception {
+        arrayList = new ArrayList();
+    }
+
 
     @DisplayName("Test Simple Add 1 Value and check size")
     @Test
     public void testAddValueByDefaultToEmptyListCorrectWithSizeChange() {
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
 
         assertEquals(1, arrayList.size());
@@ -21,7 +28,6 @@ public class ArrayListTest {
     @DisplayName("Test Attempt Add Value By Negative Index Return Exception")
     @Test
     public void testAttemptAddValueByNegativeIndexReturnException() {
-        ArrayList arrayList = new ArrayList();
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> {arrayList.add("A", -1);});
 
     }
@@ -29,7 +35,6 @@ public class ArrayListTest {
     @DisplayName("Test Simple Add/Remove 1 Value Twice and check by size and isEmpty functions")
     @Test
     public void testAddAndRemoveValueByDefaultToEmptyListCorrect() {
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
 
         assertEquals(1, arrayList.size());
@@ -47,7 +52,6 @@ public class ArrayListTest {
     @DisplayName("Test Add/Remove Values and check by size and toString functions")
     @Test
     public void testAddAndRemoveValuesCorrect(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -64,7 +68,6 @@ public class ArrayListTest {
     @DisplayName("Test Add Values and Remove First Value from List")
     @Test
     public void testAddAndRemoveFirstValuesAddNewCorrect(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -82,10 +85,22 @@ public class ArrayListTest {
         assertEquals("[B, C, D]",arrayList.toString() );
     }
 
+
+    @DisplayName("Test Add Values and Remove Last Value from List")
+    @Test
+    public void testAddAndRemoveLastValuesCorrect(){
+        arrayList.add("A");
+        arrayList.add("B");
+        arrayList.add("C");
+
+        arrayList.remove(2);
+        assertEquals("[A, B]",arrayList.toString() );
+
+    }
+
     @DisplayName("Test Add Values and check by Capacity functions")
     @Test
     public void testAddValuesUponInitialCapacityCorrect(){
-        ArrayList arrayList = new ArrayList();
         for (int i = 0; i < 12; i++) {
             arrayList.add(i);
         }
@@ -96,7 +111,6 @@ public class ArrayListTest {
     @DisplayName("Test Add Values and check by Capacity functions")
     @Test
     public void testAddValuesTwiceUponInitialCapacityCorrect(){
-        ArrayList arrayList = new ArrayList();
         for (int i = 0; i < 23; i++) {
             arrayList.add(i);
         }
@@ -107,7 +121,6 @@ public class ArrayListTest {
     @DisplayName("Test Add New Value with shift in middle List")
     @Test
     public void testAddValuesWithShiftMiddleListCorrect(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -120,7 +133,6 @@ public class ArrayListTest {
     @DisplayName("Test Add New Value with shift in begin List")
     @Test
     public void testAddValuesWithShiftBeginListCorrect(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -133,7 +145,6 @@ public class ArrayListTest {
     @DisplayName("Attempt to Add null Value with shift in begin List return Exception")
     @Test
     public void testAddNullValuesWithShiftBeginListFail(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -146,7 +157,6 @@ public class ArrayListTest {
     @DisplayName("Test Add Values and check by Capacity functions")
     @Test
     public void testAddValuesWithIndexUponInitialCapacityCorrect(){
-        ArrayList arrayList = new ArrayList();
         for (int i = 0; i < 10; i++) {
             arrayList.add(i);
         }
@@ -159,7 +169,6 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Remove not existed index in List")
     @Test
     public void testAttemptRemoveByNoExistedIndexReturnException(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -170,8 +179,6 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Add null value to List, returns NullPointException")
     @Test
     public void testAttemptAddNullAsValueReturnException() {
-        ArrayList arrayList = new ArrayList();
-
         assertThrows(NullPointerException.class, () -> {arrayList.add(null);});
         assertTrue(arrayList.isEmpty());
     }
@@ -179,14 +186,12 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Get(0) value from empty List, returns Exception")
     @Test
     public void testAttemptOfGetValueFromEmptyListReturnException(){
-        ArrayList arrayList = new ArrayList();
         assertThrows(IndexOutOfBoundsException.class, () -> {arrayList.get(0);});
     }
 
     @DisplayName("Test get value by index from List")
     @Test
     public void testGetByExistedIndexTrueFromList(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("S");
@@ -198,7 +203,6 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Get value by not existed index from List, returns Exception")
     @Test
     public void testAttemptGetByNoExistedIndexInListReturnException(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
 
@@ -208,7 +212,6 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Get value by already not existed index(because removed) from List, returns Exception")
     @Test
     public void testAttemptGetByNoExistedAlreadyIndexReturnException(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -220,7 +223,6 @@ public class ArrayListTest {
     @DisplayName("Test attempt to Set value by not existed index from List, returns Exception")
     @Test
     public void testAttemptSetToNoExistedIndexReturnException(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         assertThrows(IndexOutOfBoundsException.class, () -> {arrayList.set("B" , 1);});
     }
@@ -228,7 +230,6 @@ public class ArrayListTest {
     @DisplayName("Test Set(update) value by index to List")
     @Test
     public void testSetValueByIndexNoSizeChangesExpected(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -242,7 +243,6 @@ public class ArrayListTest {
     @DisplayName("Test Clear Existed List and check size")
     @Test
     public void testClearOfExistedListAndSizeChangesExpected(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -255,7 +255,6 @@ public class ArrayListTest {
     @DisplayName("Test Clear Empty List and check size")
     @Test
     public void testClearOfEmptyList(){
-        ArrayList arrayList = new ArrayList();
         arrayList.clear();
         assertTrue(arrayList.isEmpty());
     }
@@ -263,7 +262,6 @@ public class ArrayListTest {
     @DisplayName("Test Contain of existed value in List")
     @Test
     public void testContainOfExistedValueInListReturnTrue(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -276,7 +274,6 @@ public class ArrayListTest {
     @DisplayName("Test Contain of existed value (existed twice) in List")
     @Test
     public void testContainOfExistedTwiceValueInListReturnTrue(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -290,7 +287,6 @@ public class ArrayListTest {
     @DisplayName("Test Contain of not existed value in List")
     @Test
     public void testNotContainOfValueInListReturnFalse(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -303,7 +299,6 @@ public class ArrayListTest {
     @DisplayName("Find index of existed value in List")
     @Test
     public void testIndexOfExistedValueInListReturnIndex(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -315,7 +310,6 @@ public class ArrayListTest {
     @DisplayName("Attempt to find index of not existed value in List return -1")
     @Test
     public void testIndexOfNotExistedValueInListReturnMinus1(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -327,7 +321,6 @@ public class ArrayListTest {
     @DisplayName("Find index of first existed search value in List")
     @Test
     public void testIndexOfFirstExistedValueInListReturnIndex(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -340,7 +333,6 @@ public class ArrayListTest {
     @DisplayName("Find latest index of existed value in List")
     @Test
     public void testLatestIndexOfExistedValueInListReturnIndex(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -352,7 +344,6 @@ public class ArrayListTest {
     @DisplayName("Attempt to find latest index of not existed value in List return -1")
     @Test
     public void testLatestIndexOfNotExistedValueInListReturnMinus1(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");
@@ -364,7 +355,6 @@ public class ArrayListTest {
     @DisplayName("Find latest index of multiple existed search values in List")
     @Test
     public void testLatestIndexOfMultiExistedValueInListReturnIndex(){
-        ArrayList arrayList = new ArrayList();
         arrayList.add("A");
         arrayList.add("B");
         arrayList.add("C");

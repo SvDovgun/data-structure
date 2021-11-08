@@ -59,19 +59,19 @@ public class LinkedList implements List {
             head = removed.getNext();
             removed.setNext(null);
             removed.setValue(null);
+        }else if (index == size -1) {
+            removed = tail;
+            tail = removed.getPrev();
+            tail.next = null;
         } else {
-            for (int i = 1; i < index + 1; i++) {
+            for (int i = 1; i < index; i++) {
                 current = current.getNext();
             }
-            removed = current;
+            removed = current.getNext();
             current = removed.getPrev();
-            if(removed.getNext()!= null) {
-                current.setNext(removed.getNext());
-                current = current.getNext();
-                current.setPrev(removed.getPrev());
-            }
-            removed.setNext(null);
-            removed.setValue(null);
+            current.setNext(removed.getNext());
+            current = current.getNext();
+            current.setPrev(removed.getPrev());
         }
         size--;
         return removed.getValue();

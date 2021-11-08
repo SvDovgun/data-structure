@@ -85,6 +85,18 @@ public class LinkedListTest {
         assertEquals("[B, C, D]",list.toString() );
     }
 
+    @DisplayName("Test Add Values and Remove Last Value from List")
+    @Test
+    public void testAddAndRemoveLastValuesCorrect(){
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        list.remove(2);
+        assertEquals("[A, B]",list.toString() );
+
+    }
+
     @DisplayName("Test Add Values and check by Capacity functions")
     @Test
     public void testAddValuesUponInitialCapacityCorrect(){
