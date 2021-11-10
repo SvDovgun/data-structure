@@ -3,8 +3,15 @@ package com.luxoft.datastructures.list;
 public class ArrayList implements List {
     private Object[] array;
     private int size;
+    private static final int DEFAULT_INITIAL_CAPACITY = 10;
 
-    public ArrayList() { array = new Object[10];
+    public ArrayList() {
+        this(DEFAULT_INITIAL_CAPACITY);
+    }
+
+    public ArrayList(int capacity){
+        this.array = new Object[capacity];
+
     }
 
     private void ensureCapacity(){
@@ -18,10 +25,6 @@ public class ArrayList implements List {
     }
     @Override
     public void add(Object value) {
-//        checkValueOnNull(value);
-//        ensureCapacity();
-//        array[size] = value;
-//        size++;
         add(value, size);
     }
 
@@ -44,7 +47,7 @@ public class ArrayList implements List {
 //            array[i-1] = array[i];
 //        }
         System.arraycopy(array, index + 1, array, index, size - 1 - index ); // instead of forI
-        array[size - 1] = null; // memory lack? without it
+        array[size - 1] = null; // memory lack, without it
         size--;
         return array;
     }
@@ -82,18 +85,12 @@ public class ArrayList implements List {
 
     @Override
     public boolean contains(Object value) {
-//        for (int i = 0; i < size; i++) {
-//            Object valueArray = array[i];
-//            if (valueArray.equals(value)) {
-//                return true;
-//            }
-//        }
-//        return false;
         return indexOf(value) != -1;
     }
 
     @Override
     public int indexOf(Object value) {
+        checkValueOnNull(value);
         for (int i = 0; i < size-1; i++) {
             Object valueArray = array[i];
             if (valueArray.equals(value)) {

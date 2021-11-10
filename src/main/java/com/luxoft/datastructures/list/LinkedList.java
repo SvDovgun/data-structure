@@ -29,19 +29,14 @@ public class LinkedList implements List {
             newNode.next = head;
             head = newNode;
         } else {
-            insertIn(newNode, index);
+            insertIn(newNode, index-1);
         }
         size++;
     }
 
     private void insertIn(Node newNode,int index){
-        Node current = head;
-        Node future = null;
-
-        for (int i = 1; i < index  ; i++) {
-            current = current.getNext();
-        }
-        future = current.getNext();
+        Node current = getNode(index);
+        Node future =  current.getNext();
         newNode.prev = current.getNext();
         current.next = newNode;
         newNode.next = future;
@@ -64,9 +59,7 @@ public class LinkedList implements List {
             tail = removed.getPrev();
             tail.next = null;
         } else {
-            for (int i = 1; i < index; i++) {
-                current = current.getNext();
-            }
+            current= getNode(index-1);
             removed = current.getNext();
             current = removed.getPrev();
             current.setNext(removed.getNext());
@@ -80,21 +73,28 @@ public class LinkedList implements List {
     @Override
     public Object get(int index) {
         checkIndex(size-1, index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.getNext();
+        return getNode(index).value;
+    }
+
+    private Node getNode(int index) {
+        if (index < size) {
+            Node current = head;
+            for (int i = 0; i < index; i++){
+                current = current.next;
+            }
+            return current;
         }
-        return current.getValue();
+        else {
+            return null;
+        }
+
     }
 
     @Override
     public Object set(Object value, int index) {
         checkValueOnNull(value);
         checkIndex(size-1, index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.getNext();
-        }
+        Node current = getNode(index);
         current.setValue(value);
         return current.getValue();
     }
