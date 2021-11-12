@@ -1,5 +1,7 @@
 package com.luxoft.datastructures.list;
 
+import java.util.Iterator;
+
 // Abstract Data Type
 public interface List {
     // add value to the end of the list
@@ -44,5 +46,7 @@ public interface List {
     // [A, B, C]
     String toString();
 
+    Iterator<Object> iterator();
 
+    String toIteratorString();
 }

@@ -1,6 +1,8 @@
 package com.luxoft.datastructures.list;
 
-public class ArrayList implements List {
+import java.util.Iterator;
+
+public class ArrayList implements List , Iterable<Object>{
     private Object[] array;
     private int size;
     private static final int DEFAULT_INITIAL_CAPACITY = 10;
@@ -125,6 +127,20 @@ public class ArrayList implements List {
         return "[" + result + "]";
     }
 
+    @Override
+    public String toIteratorString() {
+        StringBuilder result = new StringBuilder();
+        MyIterator iterator = new MyIterator();
+        while (iterator.hasNext()){
+            Object next = iterator.next();
+            result.append(next);
+            if (iterator.index < size  ) {
+                result.append( ", ");
+            }
+        }
+        return "[" + result + "]";
+    }
+
     private void checkIndex(int size, int index) {
         if (index > size) {
             throw new IndexOutOfBoundsException("Index is more than array size!");
@@ -139,4 +155,33 @@ public class ArrayList implements List {
             throw new NullPointerException("Null is not supported");
         }
     }
+
+    @Override
+    public Iterator<Object> iterator() {
+        return new MyIterator();
+    }
+
+
+    private class MyIterator implements Iterator{
+        private int index;
+
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public Object next() {
+            Object value =  array[index];
+            index++ ;
+            return value;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+    }
+
 }

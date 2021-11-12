@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -377,5 +379,39 @@ public abstract class AbstractListTest {
         list.add("R");
 
         assertEquals(7, list.lastIndexOf("C"));
+    }
+
+    @Test
+    public void testIteratorNasNextCorrect(){
+        list.add("A");
+        list.add("D");
+
+        Iterator iterator = list.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals("A", iterator.next());
+        assertTrue(iterator.hasNext());
+        assertEquals("D", iterator.next());
+        assertFalse(iterator.hasNext());
+
+    }
+
+    @Test
+    public void testIteratorStringOneValue(){
+        list.add("S");
+        assertEquals("[S]", list.toIteratorString());
+    }
+
+    @Test
+    public void testIteratorString(){
+        list.add("A");
+        list.add("D");
+        list.add("C");
+        list.add("T");
+        assertEquals("[A, D, C, T]", list.toIteratorString());
+    }
+
+    @Test
+    public void testIteratorStringNoValue(){
+        assertEquals("[]", list.toIteratorString());
     }
 }

@@ -1,8 +1,9 @@
 package com.luxoft.datastructures.list;
 
+import java.util.Iterator;
 import java.util.StringJoiner;
 
-public class LinkedList implements List {
+public class LinkedList implements List , Iterable<Object>{
 
     Node head;
     Node tail;
@@ -170,6 +171,80 @@ public class LinkedList implements List {
     private void checkValueOnNull(Object value) {
         if (value == null) {
             throw new NullPointerException("Null is not supported");
+        }
+    }
+
+    @Override
+    public String toIteratorString() {
+        StringJoiner result = new StringJoiner(", ", "[", "]");
+        LinkedList.MyIterator iterator = new LinkedList.MyIterator();
+        while (iterator.hasNext()){
+            Object value = iterator.next();
+            result.add(value.toString());
+        }
+        return result.toString();
+    }
+
+    @Override
+    public Iterator<Object> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator  {
+        private int maxIteration = size;
+        private int index = 0;
+        private Node current = head ;
+
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Object next() {
+            Object value = current.value;
+            current=current.next;
+            return value;
+        }
+
+        @Override
+        public void remove() {
+        }
+
+    }
+
+    private static class Node {
+        Node next;
+        Node prev;
+        Object value;
+
+        public Node(Object value) {
+            this.value = value;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public Node getPrev() {
+            return prev;
+        }
+
+        public void setPrev(Node prev) {
+            this.prev = prev;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public void setValue(Object value) {
+            this.value = value;
         }
     }
 }
