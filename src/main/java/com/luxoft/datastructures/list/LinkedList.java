@@ -191,10 +191,7 @@ public class LinkedList implements List , Iterable<Object>{
     }
 
     private class MyIterator implements Iterator  {
-        private int maxIteration = size;
-        private int index = 0;
         private Node current = head ;
-
 
         @Override
         public boolean hasNext() {
