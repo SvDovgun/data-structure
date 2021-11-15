@@ -9,6 +9,7 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
     Node<T> head;
     Node<T> tail;
     int size = 0;
+    MyIterator<T> iterator = new LinkedList.MyIterator();
 
     @Override
     public void add(T value) {
@@ -179,12 +180,14 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
     public String toIteratorString() {
         StringJoiner result = new StringJoiner(", ", "[", "]");
         MyIterator<T> iterator = new LinkedList.MyIterator();
+        boolean step;
         do {
+            step= iterator.hasNext();
             T value = (T) iterator.next();
             if (value != null) {
                 result.add(value.toString());
             }
-        }  while (iterator.hasNext());
+        }  while (step);
 //        while (iterator.hasNext()){
 //            T value = (T) iterator.next();
 //            result.add(value.toString());
@@ -199,11 +202,11 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
 
     private class MyIterator<T> implements Iterator<T>  {
         private Node<T> current = (Node<T>) head;
-     //   private Node<T> tail = (Node<T>) LinkedList.this.tail;
+        private Node<T> tail;
 
         @Override
         public boolean hasNext() {
-            return current != tail;
+            return current.next != null;
         }
 
         @Override
@@ -213,7 +216,6 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
             if (hasNext() == true) {
                 current = current.next;
             }
-            System.out.println("value in next() " + value);
             return value;
         }
 
@@ -222,17 +224,22 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
             while (hasNext()) {
                 next();
             }
-//            if (current.getPrev() != null) {
-//                tail = current.getPrev();
-//                tail.next = null;
-//            } else if (current == head){
-//                tail = current = (Node<T>) head;
-//                current.setNext(null);
-//                current.setValue(null);
-//            }
-//            size--;
-//            current = (Node<T>) head;
-            LinkedList.this.remove(size-1);
+            if (current.getPrev() != null) {
+                tail = current.getPrev();
+                tail.next = null;
+             //   current.setNext(null);
+             //   current.setValue(null);
+             //   current.setPrev(null);
+            } else if (current == head){
+                tail.prev = null;
+                tail.setValue(null);
+                tail = null;
+                head = null;
+            }
+
+            size--;
+            current = (Node<T>) head;
+         //   LinkedList.this.remove(size-1);
         }
 
     }

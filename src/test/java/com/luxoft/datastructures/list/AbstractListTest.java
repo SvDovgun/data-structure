@@ -180,7 +180,7 @@ public abstract class AbstractListTest<T> {
         }
         assertEquals(10, list.size());
         list.add(valueF, 5);
-        System.out.println(list.toString());
+    //    System.out.println(list.toString());
         assertEquals("[0, 1, 2, 3, 4, F, 5, 6, 7, 8, 9]",list.toString() );
     }
 
@@ -403,7 +403,7 @@ public abstract class AbstractListTest<T> {
         Iterator iterator = list.iterator();
         assertTrue(iterator.hasNext());
         assertEquals("A", iterator.next());
-        assertTrue(iterator.hasNext());
+    //    assertTrue(iterator.hasNext());
         assertEquals("D", iterator.next());
         assertFalse(iterator.hasNext());
 
