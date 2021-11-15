@@ -1,10 +1,10 @@
 package com.luxoft.datastructures.list;
 
 
-public class LinkedListTest extends AbstractListTest{
+public class LinkedListTest<T> extends AbstractListTest<T>{
 
     @Override
-    protected List getList() {
-        return new LinkedList();
+    protected List<T> getList() {
+        return new LinkedList<T>();
     }
 }

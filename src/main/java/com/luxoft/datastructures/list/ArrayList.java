@@ -1,9 +1,10 @@
 package com.luxoft.datastructures.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class ArrayList implements List , Iterable<Object>{
-    private Object[] array;
+public class ArrayList<T> implements List<T> , Iterable<T>{
+    private T[] array;
     private int size;
     private static final int DEFAULT_INITIAL_CAPACITY = 10;
 
@@ -12,13 +13,13 @@ public class ArrayList implements List , Iterable<Object>{
     }
 
     public ArrayList(int capacity){
-        this.array = new Object[capacity];
+        this.array = (T[]) new Object[capacity];
 
     }
 
     private void ensureCapacity(){
         if (array.length == size) {
-            Object[] newArray = new Object[array.length * 3 /2 ];
+            T[] newArray =(T[]) new Object[array.length * 3 /2 ];
             for (int i = 0; i < array.length; i++) {
                 newArray[i] = array[i];
             }
@@ -26,12 +27,12 @@ public class ArrayList implements List , Iterable<Object>{
         }
     }
     @Override
-    public void add(Object value) {
+    public void add(T value) {
         add(value, size);
     }
 
     @Override
-    public void add(Object value, int index) {
+    public void add(T value, int index) {
         checkIndex(size, index);
         checkValueOnNull(value);
         ensureCapacity();
@@ -43,7 +44,7 @@ public class ArrayList implements List , Iterable<Object>{
     }
 
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         checkIndex(size-1, index);
 //        for (int i = index+1; i < size ; i++) {
 //            array[i-1] = array[i];
@@ -51,17 +52,17 @@ public class ArrayList implements List , Iterable<Object>{
         System.arraycopy(array, index + 1, array, index, size - 1 - index ); // instead of forI
         array[size - 1] = null; // memory lack, without it
         size--;
-        return array;
+        return (T) array;
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         checkIndex(size-1, index);
         return array[index];
     }
 
     @Override
-    public Object set(Object value, int index) {
+    public T set(T value, int index) {
         checkIndex(size-1, index);
         checkValueOnNull(value);
         return array[index] = value;
@@ -86,15 +87,15 @@ public class ArrayList implements List , Iterable<Object>{
     }
 
     @Override
-    public boolean contains(Object value) {
+    public boolean contains(T value) {
         return indexOf(value) != -1;
     }
 
     @Override
-    public int indexOf(Object value) {
+    public int indexOf(T value) {
         checkValueOnNull(value);
         for (int i = 0; i < size-1; i++) {
-            Object valueArray = array[i];
+            T valueArray = array[i];
             if (valueArray.equals(value)) {
                 return i;
             }
@@ -103,10 +104,10 @@ public class ArrayList implements List , Iterable<Object>{
     }
 
     @Override
-    public int lastIndexOf(Object value) {
+    public int lastIndexOf(T value) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            Object valueArray = array[i];
+            T valueArray = (T) array[i];
             if (valueArray.equals(value)) {
                 index =  i;
             }
@@ -130,9 +131,9 @@ public class ArrayList implements List , Iterable<Object>{
     @Override
     public String toIteratorString() {
         StringBuilder result = new StringBuilder();
-        MyIterator iterator = new MyIterator();
+        MyIterator<T> iterator = new MyIterator<>();
         while (iterator.hasNext()){
-            Object next = iterator.next();
+            T next = (T) iterator.next();
             result.append(next);
             if (iterator.index < size  ) {
                 result.append( ", ");
@@ -157,14 +158,13 @@ public class ArrayList implements List , Iterable<Object>{
     }
 
     @Override
-    public Iterator<Object> iterator() {
-        return new MyIterator();
+    public Iterator<T> iterator() {
+        return new MyIterator<T>();
     }
 
 
-    private class MyIterator implements Iterator{
+    private class MyIterator<T> implements Iterator<T> {
         private int index;
-
 
         @Override
         public boolean hasNext() {
@@ -172,15 +172,31 @@ public class ArrayList implements List , Iterable<Object>{
         }
 
         @Override
-        public Object next() {
-            Object value =  array[index];
+        public T next() {
+            T value ;
+            if ( (T) array[index] == null) {
+                throw new NoSuchElementException("Null is not supported");
+            } else {
+                value = (T) array[index];
+            }
             index++ ;
             return value;
         }
 
         @Override
         public void remove() {
-
+            //remove the latest element
+            while (hasNext()) {
+                next();
+            }
+            if ( (T) array[index-1] == null) {
+                throw new NoSuchElementException("Null is not supported");
+            } else {
+                array[index-1] = null;
+            }
+            index--;
+            size--;
+          //  ArrayList.this.remove(this.index-1);
         }
     }
 
