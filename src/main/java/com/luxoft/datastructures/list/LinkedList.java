@@ -227,9 +227,7 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
             if (current.getPrev() != null) {
                 tail = current.getPrev();
                 tail.next = null;
-             //   current.setNext(null);
-             //   current.setValue(null);
-             //   current.setPrev(null);
+
             } else if (current == head){
                 tail.prev = null;
                 tail.setValue(null);
@@ -249,31 +247,31 @@ public class LinkedList<T> implements List<T>, Iterable<T>{
         Node<T> prev;
         T value;
 
-        public Node(T value) {
+        private Node(T value) {
             this.value = (T) value;
         }
 
-        public Node<T> getNext() {
+        private Node<T> getNext() {
             return next;
         }
 
-        public void setNext(Node<T> next) {
+        private void setNext(Node<T> next) {
             this.next = next;
         }
 
-        public Node<T> getPrev() {
+        private Node<T> getPrev() {
             return prev;
         }
 
-        public void setPrev(Node<T> prev) {
+        private void setPrev(Node<T> prev) {
             this.prev = prev;
         }
 
-        public T getValue() {
+        private T getValue() {
             return (T) value;
         }
 
-        public void setValue(T value) {
+        private void setValue(T value) {
             this.value = (T) value;
         }
     }
